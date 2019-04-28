@@ -1,98 +1,32 @@
-matrix:
-  include:
-    # linux
-    - os: linux
-      dist: xenial
-      env: 
-        - BUILD_TARGET=linux 
-        - GEN_BINDING_AND_COCOSFILE=true
-        - secure: Xn48eX1TD6DAPcVPU+a+CD3b/BKGVCHk555zl8rZiLq4GH4rWSES23rKcY8uz/X9GizETWYQK2luNvph4/BA29XEZ7l+Q0V9AZwrahWPzCuDBgxSPAr4KlETGM9I3xEvRIKBeddko7JTFHZCcNsItPRA0CovndQzdKE6texm13A=
-        - secure: M31OQaUIBV13aUMylPs2PieKThGs+ED0tj9SKbCKGKxwojl+N2ZhlS53D4Zqoj1ru/3P1X0pPeYvV0uVfM2dpEwRF4BmYVZQSrOKgjK1VfbcN5luWSeuAvq0LNGT99Ao02sKLbcHINiQ4axylPPgsY6+X/aoJNuKqBTQyaaVAo8=
-        - secure: M5lyDs0qai15mWHzJdkh0WPfVJJmVZu6SWtYULxatukGPXVwoQvmEtYAwAW+iz6aM+tXksQ/mk6nW5L8UFbHm+n6yrsa5bZU9sGXjilPE8p8bLFYDmIbPRazU+E6pBP3J2CDoAm0XnWkiYQ8feTxKTo6ysLnHAEjyaHTw0+Q1GM=
-      sudo: required
-      language: cpp
-    # clang-tidy
-    - os: linux
-      dist: xenial
-      env: BUILD_TARGET=linux_clang_tidy
-      language: cpp
-      sudo: required
-    # mac_cmake
-    - os: osx
-      env: BUILD_TARGET=mac_cmake
-      language: cpp
-      osx_image: xcode9.3
-      sudo: required
-    # iOS_cmake
-    - os: osx
-      env: BUILD_TARGET=ios_cmake
-      language: cpp
-      osx_image: xcode9.3
-      sudo: required
-    # android ndk-build
-    - os: linux
-      env: BUILD_TARGET=android_cpp_ndk-build
-      language: android
-      sudo: required
-    # android_lua ndk-build
-    - os: linux
-      env: BUILD_TARGET=android_lua_ndk-build
-      language: android
-      sudo: required
-    # android cmake
-    - os: linux
-      env: BUILD_TARGET=android_cpp_cmake
-      language: android
-      sudo: required
-    # android_lua cmake
-    - os: linux
-      env: BUILD_TARGET=android_lua_cmake
-      language: android
-      sudo: required
-    # android_js cmake
-    - os: linux
-      env: BUILD_TARGET=android_js_cmake
-      language: android
-      sudo: required
-    # mac
-    - os: osx
-      env: BUILD_TARGET=mac
-      language: cpp
-      osx_image: xcode9.3
-      sudo: required
-    # iOS
-    - os: osx
-      env: BUILD_TARGET=ios
-      language: cpp
-      osx_image: xcode9.3
-      sudo: required
-    - os: linux
-      env: BUILD_TARGET=android_cocos_new_cpp_test
-      language: android
-      sudo: required
-    - os: linux
-      dist: xenial
-      env: BUILD_TARGET=linux_cocos_new_lua_test
-      language: cpp
-      sudo: required
+os: linux
+dist: xenial
+sudo: required
+language: cpp
 
-script:
-- tools/travis-scripts/run-script.sh
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Y2zv9t+958KfOm6gtN5D70clBeSsCDwzNGV++RBMl7i3Ck50++Ur5Ssluzj4D7T2vruye+gfE8MILRT5ix8MvTwp/xTyzfUocGj56MnlYQRJmvkrHgf5iDF7tZJf8FMJfAlORt8rn27rHXNNcHrKi5CPGwGGAMxgC4BEcaxmiIR2BT7epdkl14c+jpds80JChK1fehmQ3aVrluydyAMODX8lj7azb0SsxueVJZ9MugYd8UpCib6kSYo1J63+dvYwmbqmOUuhSDDBb3fvcnnP3Nf5ZIk/4sR0PBNpsLZdbwulTSSKrcouxKlBGYAlpCFhGQ537eu3n7YN03jge0ouoZzMTsmcH9afpquuIojsrVlumNJUq+Zl85xMg/tliYJ4Hl8fUGHDLUel3TigiiIcveFvDHdT+UsjfJ2YsvChwbNtqBmYufdfYUg7wZwKP7dNjp12z/QGp7hhLeEJdxi/flZBmStd2xsRRmQMd3pJUBcO36tCEpGckXWREDccJREEo/mPjHHzZ0rtFX0TRStIyKcvFKTlLrEtAZdMgFSxXajv8oRQAdqfU+1/4WizS5jpIuSTEt0AV7xeBIOMhKnhX2p6mJ5aGI3dleBD05LryKwJPIgVTZPSNYi3xPlxhohZHrbIkDOeNXz2cbFYtwCvgpZ+E44V9cdFlml7BXOx9ss="
+  - BUILD_TARGET=linux 
+  - GEN_BINDING_AND_COCOSFILE=true
+
 before_install:
-- tools/travis-scripts/before-install.sh
+  - tools/travis-scripts/before-install.sh
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "JohnCoconut/cocos2d-x"
+      description: "cocos2d-x coverity scan"
+    notification_email: mywtfmp3@gmail.com
+    build_command_prepend: "mkdir build/cmake-build; cd build/cmake-build; cmake -GNinja ../.."
+    build_command: "ninja"
+    branch_pattern: coverity-scan
 
 cache:
   bundler: true
 
 notifications:
   email: false
-
-# blocklist
-branches:
-  except:
-  - v1
-  - v2
-  - v4-develop
-  - v3-doc
-  - v3.11_backup
-  - v35-for-tizen
