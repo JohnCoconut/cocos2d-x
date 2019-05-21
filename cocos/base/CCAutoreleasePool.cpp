@@ -93,7 +93,7 @@ void AutoreleasePool::dump()
     CCLOG("%20s%20s%20s", "Object pointer", "Object id", "reference count");
     for (const auto &obj : _managedObjectArray)
     {
-        CCLOG("%20p%20u\n", obj, obj->getReferenceCount());
+        CCLOG("%20p%20u\n", (void*)obj, obj->getReferenceCount());
     }
 }
 

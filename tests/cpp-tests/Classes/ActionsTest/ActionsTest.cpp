@@ -673,7 +673,7 @@ void ActionAnimate::onEnter()
     _frameDisplayedListener = EventListenerCustom::create(AnimationFrameDisplayedNotification, [](EventCustom * event){
         auto userData = static_cast<AnimationFrame::DisplayedEventInfo*>(event->getUserData());
         
-         log("target %p with data %s", userData->target, Value(userData->userInfo).getDescription().c_str());
+         log("target %p with data %s", (void*)userData->target, Value(userData->userInfo).getDescription().c_str());
     });
 
     _eventDispatcher->addEventListenerWithFixedPriority(_frameDisplayedListener, -1);
@@ -947,7 +947,7 @@ void ActionCallFunction::callback2(Node* sender)
 
     addChild(label);
 
-	CCLOG("sender is: %p", sender);
+	CCLOG("sender is: %p", (void*)sender);
 }
 
 void ActionCallFunction::callback3(Node* sender, long data)
@@ -957,7 +957,7 @@ void ActionCallFunction::callback3(Node* sender, long data)
     label->setPosition(s.width/4*3,s.height/2);
     addChild(label);
 
-	CCLOG("target is: %p, data is: %ld", sender, data);
+	CCLOG("target is: %p, data is: %ld", (void*)sender, data);
 }
 
 std::string ActionCallFunction::subtitle() const

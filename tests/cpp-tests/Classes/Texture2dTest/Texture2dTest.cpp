@@ -1562,7 +1562,7 @@ void TextureAsync::imageLoaded(Texture2D* texture)
 
     _imageOffset++;
 
-    log("Image loaded: %p", texture);
+    log("Image loaded: %p", (void*)texture);
 }
 
 std::string TextureAsync::title() const

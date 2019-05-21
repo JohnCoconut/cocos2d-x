@@ -64,7 +64,7 @@ bool EventListenerAssetsManagerEx::init(const AssetsManagerEx *AssetsManagerEx, 
         EventAssetsManagerEx *eventAssetsManagerEx = dynamic_cast<EventAssetsManagerEx*>(event);
         _onAssetsManagerExEvent(eventAssetsManagerEx);
     };
-    std::string pointer = StringUtils::format("%p", AssetsManagerEx);
+    std::string pointer = StringUtils::format("%p", (void*)AssetsManagerEx);
     if (EventListenerCustom::init(LISTENER_ID + pointer, func))
     {
         ret = true;

@@ -1343,12 +1343,12 @@ void SchedulerIssue17149::onEnter()
 void SchedulerIssue17149::update(float dt)
 {
     auto classa = new (_memoryPool) ClassA();
-    CCLOG("Address one: %p", classa);
+    CCLOG("Address one: %p", (void*)classa);
     Director::getInstance()->getScheduler()->scheduleUpdate(classa, 1, false);
     Director::getInstance()->getScheduler()->unscheduleUpdate(classa);
     
     auto classb = new (_memoryPool) ClassB();
-    CCLOG("Address one: %p", classb);
+    CCLOG("Address one: %p", (void*)classb);
     Director::getInstance()->getScheduler()->scheduleUpdate(classb, 1, false);
     
     unscheduleUpdate();

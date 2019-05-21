@@ -242,7 +242,7 @@ void removeJSObject(JSContext* cx, cocos2d::Ref* nativeObj)
         // the correct solution is to have a new finalize for event
         jsb_remove_proxy(proxy);
     }
-    else CCLOG("removeJSObject: BUG: cannot find native object = %p", nativeObj);
+    else CCLOG("removeJSObject: BUG: cannot find native object = %p", (void*)nativeObj);
 }
 
 void ScriptingCore::executeJSFunctionWithThisObj(JS::HandleValue thisObj, JS::HandleValue callback)
@@ -1767,7 +1767,7 @@ void ScriptingCore::rootObject(Ref* ref)
         JS::AddNamedObjectRoot(cx, &proxy->obj, typeid(*ref).name());
         ref->_rooted = true;
     }
-    else CCLOG("rootObject: BUG. native not found: %p (%s)",  ref, typeid(*ref).name());
+    else CCLOG("rootObject: BUG. native not found: %p (%s)",  (void*)ref, typeid(*ref).name());
 }
 
 void ScriptingCore::unrootObject(Ref* ref)
@@ -1778,7 +1778,7 @@ void ScriptingCore::unrootObject(Ref* ref)
         JS::RemoveObjectRoot(cx, &proxy->obj);
         ref->_rooted = false;
     }
-    else CCLOG("unrootObject: BUG. native not found: %p (%s)",  ref, typeid(*ref).name());
+    else CCLOG("unrootObject: BUG. native not found: %p (%s)",  (void*)ref, typeid(*ref).name());
 }
 
 void ScriptingCore::removeObjectProxy(Ref* obj)

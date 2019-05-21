@@ -142,7 +142,7 @@ void WebSocketDelayTest::onOpen(network::WebSocket* ws)
     char status[256] = {0};
     sprintf(status, "Opened, url: %s, protocol: %s", ws->getUrl().c_str(), ws->getProtocol().c_str());
 
-    log("Websocket (%p) was opened, url: %s, protocol: %s", ws, ws->getUrl().c_str(), ws->getProtocol().c_str());
+    log("Websocket (%p) was opened, url: %s, protocol: %s", (void*)ws, ws->getUrl().c_str(), ws->getProtocol().c_str());
     if (ws == _wsiSendText)
     {
         _sendTextStatus->setString(status);
@@ -168,7 +168,7 @@ void WebSocketDelayTest::onMessage(network::WebSocket* ws, const network::WebSoc
 
 void WebSocketDelayTest::onClose(network::WebSocket* ws)
 {
-    log("onClose: websocket instance (%p) closed.", ws);
+    log("onClose: websocket instance (%p) closed.", (void*)ws);
     if (ws == _wsiSendText)
     {
         _wsiSendText = nullptr;

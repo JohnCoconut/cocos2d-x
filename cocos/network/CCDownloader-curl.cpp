@@ -726,7 +726,7 @@ namespace cocos2d { namespace network {
         };
 
         char key[128];
-        sprintf(key, "DownloaderCURL(%p)", this);
+        sprintf(key, "DownloaderCURL(%p)", (void*)this);
         _schedulerKey = key;
 
         _scheduler->schedule(bind(&DownloaderCURL::_onSchedule, this, placeholders::_1),

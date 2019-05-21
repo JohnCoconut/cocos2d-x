@@ -130,7 +130,7 @@ JSObject *js_cocos2dx_socketio_prototype;
 
 void js_cocos2dx_SocketIO_finalize(JSFreeOp *fop, JSObject *obj)
 {
-    CCLOG("jsbindings: finalizing JS object %p (SocketIO)", obj);
+    CCLOG("jsbindings: finalizing JS object %p (SocketIO)", (void*)obj);
 }
 
 bool js_cocos2dx_SocketIO_constructor(JSContext *cx, uint32_t argc, jsval *vp)

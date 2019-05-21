@@ -142,7 +142,7 @@ void Speed::startWithTarget(Node* target)
         _innerAction->startWithTarget(target);
     }
     else
-        log("Speed::startWithTarget error: target(%p) or _innerAction(%p) is nullptr!", target, _innerAction);
+        log("Speed::startWithTarget error: target(%p) or _innerAction(%p) is nullptr!", (void*)target, (void*)_innerAction);
 }
 
 void Speed::stop()

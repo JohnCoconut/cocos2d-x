@@ -240,7 +240,7 @@ MinXmlHttpRequest::EncodingType MinXmlHttpRequest::_getEncodingType() const
     }
     else
     {
-        CCLOG("[error] bad unrecongized Content-Encoding value ", encodingTypeStr.c_str(), ", use \"identity\" as default");
+        CCLOG("[error] unrecongized Content-Encoding value %s%s", encodingTypeStr.c_str(), ", use \"identity\" as default");
         return EncodingType::IDENTITY;
     }
 }
@@ -1106,7 +1106,7 @@ JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, overrideMimeType)
  */
 static void basic_object_finalize(JSFreeOp *freeOp, JSObject *obj)
 {
-   CCLOG("basic_object_finalize %p ...", obj);
+   CCLOG("basic_object_finalize %p ...", (void*)obj);
 }
 
 void MinXmlHttpRequest::_notify(JS::HandleObject callback, JS::HandleValueArray args)

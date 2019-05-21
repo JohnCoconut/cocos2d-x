@@ -172,7 +172,7 @@ void WebSocketTest::onOpen(network::WebSocket* ws)
     char status[256] = {0};
     sprintf(status, "Opened, url: %s, protocol: %s", ws->getUrl().c_str(), ws->getProtocol().c_str());
 
-    log("Websocket (%p) was opened, url: %s, protocol: %s", ws, ws->getUrl().c_str(), ws->getProtocol().c_str());
+    log("Websocket (%p) was opened, url: %s, protocol: %s", (void*)ws, ws->getUrl().c_str(), ws->getProtocol().c_str());
     if (ws == _wsiSendText)
     {
         _sendTextStatus->setString(status);
@@ -226,7 +226,7 @@ void WebSocketTest::onMessage(network::WebSocket* ws, const network::WebSocket::
 
 void WebSocketTest::onClose(network::WebSocket* ws)
 {
-    log("onClose: websocket instance (%p) closed.", ws);
+    log("onClose: websocket instance (%p) closed.", (void*)ws);
     if (ws == _wsiSendText)
     {
         _wsiSendText = nullptr;
@@ -370,17 +370,17 @@ WebSocketCloseTest::~WebSocketCloseTest()
 // Delegate methods
 void WebSocketCloseTest::onOpen(network::WebSocket* ws)
 {
-    log("Websocket (%p) opened", ws);
+    log("Websocket (%p) opened", (void*)ws);
 }
 
 void WebSocketCloseTest::onMessage(network::WebSocket* ws, const network::WebSocket::Data& data)
 {
-    log("Websocket get message from %p", ws);
+    log("Websocket get message from %p", (void*)ws);
 }
 
 void WebSocketCloseTest::onClose(network::WebSocket* ws)
 {
-    log("websocket (%p) closed.", ws);
+    log("websocket (%p) closed.", (void*)ws);
     if (ws == _wsiTest) {
         _wsiTest = nullptr;
     }

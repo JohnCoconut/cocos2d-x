@@ -94,7 +94,7 @@ std::string PrettyPrinter::getResult()
 void PrettyPrinter::visitObject(const Ref *p)
 {
     char buf[50] = {0};
-    sprintf(buf, "%p", p);
+    sprintf(buf, "%p", (void*)p);
     _result += buf;
 }
 

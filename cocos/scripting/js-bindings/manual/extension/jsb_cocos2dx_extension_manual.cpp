@@ -557,7 +557,7 @@ public:
         js_proxy_t* p = jsb_get_native_proxy(controlButton);
         if (!p)
         {
-            log("Failed to get proxy for control button %p", controlButton);
+            log("Failed to get proxy for control button %p", (void*)controlButton);
             return;
         }
 

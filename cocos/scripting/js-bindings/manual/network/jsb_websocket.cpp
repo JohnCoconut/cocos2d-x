@@ -215,7 +215,7 @@ JSClass  *js_cocos2dx_websocket_class;
 JSObject *js_cocos2dx_websocket_prototype;
 
 void js_cocos2dx_WebSocket_finalize(JSFreeOp *fop, JSObject *obj) {
-    CCLOG("jsbindings: finalizing JS object %p (WebSocket)", obj);
+    CCLOG("jsbindings: finalizing JS object %p (WebSocket)", (void*)obj);
 }
 
 bool js_cocos2dx_extension_WebSocket_send(JSContext *cx, uint32_t argc, jsval *vp)

@@ -80,7 +80,7 @@ AssetsManagerEx::AssetsManagerEx(const std::string& manifestUrl, const std::stri
 {
     // Init variables
     _eventDispatcher = Director::getInstance()->getEventDispatcher();
-    std::string pointer = StringUtils::format("%p", this);
+    std::string pointer = StringUtils::format("%p", (void*)this);
     _eventName = EventListenerAssetsManagerEx::LISTENER_ID + pointer;
     _fileUtils = FileUtils::getInstance();
 
